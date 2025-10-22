@@ -1,1 +1,23 @@
+name: DevSecOps CI/CD Pipline to Azure
 
+on:
+  push:
+    brances: [ "main"]
+  pull_reauest:
+    brances: [ "main"]
+
+jobs:
+  bulid_and_scan:
+    name: Scan & Quality Gate
+    runs-on: ubuntu-latest
+    steps:
+      - users: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        user: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'app/package.json'
